@@ -9,6 +9,8 @@ import Chat from "./pages/Chat";
 import Memory from "./pages/Memory";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import CameraInput from "./pages/CameraInput";
+import SignLanguage from "./pages/SignLanguage";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +25,8 @@ const App = () => (
           <Route path="/chat" element={<Chat />} />
           <Route path="/memory" element={<Memory />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/camera" element={<CameraInput />} />
+          <Route path="/sign-language" element={<SignLanguage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

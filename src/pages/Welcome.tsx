@@ -1,72 +1,103 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '@/components/Logo';
-import WelcomeButton from '@/components/WelcomeButton';
+import { 
+  MessageSquare, 
+  Brain, 
+  Settings as SettingsIcon, 
+  Camera, 
+  Languages 
+} from 'lucide-react';
 
 const Welcome = () => {
   const navigate = useNavigate();
-  
-  // For accessibility, announce the page when it loads
-  React.useEffect(() => {
-    const announcement = new SpeechSynthesisUtterance("Welcome to Your Assistant. Helping you every step of the way.");
-    window.speechSynthesis.speak(announcement);
-  }, []);
 
   return (
-    <div 
-      className="min-h-screen w-full flex flex-col items-center justify-center p-6 relative overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, #9b87f5 0%, #6E59A5 100%)' }}
-      role="main"
-      aria-label="Welcome screen"
-    >
-      {/* Background animated circles for visual interest */}
-      <div className="absolute w-64 h-64 bg-white/10 rounded-full -top-20 -right-20 blur-xl" />
-      <div className="absolute w-96 h-96 bg-white/5 rounded-full -bottom-40 -left-20 blur-xl" />
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-assistant-purple-light/50 to-assistant-purple-DEFAULT/30">
+      <main className="flex-1 flex flex-col items-center justify-center p-6">
+        <div className="animate-fade-in text-center">
+          <div className="mb-8">
+            <Logo />
+          </div>
+          
+          <h1 className="text-4xl font-bold mb-2 text-assistant-gray-dark">
+            Welcome to Your Assistant
+          </h1>
+          <p className="text-xl text-assistant-gray-DEFAULT mb-12">
+            Helping you every step of the way
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            <WelcomeButton 
+              icon={<MessageSquare className="w-8 h-8" />}
+              label="Start Chat"
+              onClick={() => navigate('/chat')}
+              delay={0.1}
+            />
+            
+            <WelcomeButton 
+              icon={<Brain className="w-8 h-8" />}
+              label="View Memory"
+              onClick={() => navigate('/memory')}
+              delay={0.2}
+            />
+            
+            <WelcomeButton 
+              icon={<SettingsIcon className="w-8 h-8" />}
+              label="Settings"
+              onClick={() => navigate('/settings')}
+              delay={0.3}
+            />
+            
+            <WelcomeButton 
+              icon={<Camera className="w-8 h-8" />}
+              label="Camera Input"
+              onClick={() => navigate('/camera')}
+              delay={0.4}
+            />
+            
+            <WelcomeButton 
+              icon={<Languages className="w-8 h-8" />}
+              label="Sign Language"
+              onClick={() => navigate('/sign-language')}
+              delay={0.5}
+            />
+          </div>
+        </div>
+      </main>
       
-      <div className="z-10 flex flex-col items-center justify-center w-full max-w-md">
-        {/* Logo */}
-        <div className="mb-8 animate-fade-in">
-          <Logo />
-        </div>
-        
-        {/* Welcome Text */}
-        <h1 
-          className="text-4xl font-bold text-white mb-3 text-center animate-fade-in"
-          style={{ animationDelay: '200ms', animationFillMode: 'both' }}
-        >
-          Welcome to Your Assistant
-        </h1>
-        <p 
-          className="text-xl text-white/90 mb-12 text-center animate-fade-in"
-          style={{ animationDelay: '400ms', animationFillMode: 'both' }}
-        >
-          Helping you every step of the way
-        </p>
-        
-        {/* Buttons */}
-        <div className="flex flex-col w-full space-y-4">
-          <WelcomeButton 
-            icon="💬" 
-            label="Start Chat" 
-            onClick={() => navigate('/chat')} 
-            delay={600} 
-          />
-          <WelcomeButton 
-            icon="🧠" 
-            label="View Memory" 
-            onClick={() => navigate('/memory')} 
-            delay={800} 
-          />
-          <WelcomeButton 
-            icon="⚙️" 
-            label="Settings" 
-            onClick={() => navigate('/settings')} 
-            delay={1000} 
-          />
-        </div>
-      </div>
+      <footer className="p-4 text-center text-sm text-assistant-gray-DEFAULT">
+        <p>© 2025 AI Assistant • Version 1.0</p>
+      </footer>
     </div>
+  );
+};
+
+interface WelcomeButtonProps {
+  icon: React.ReactNode;
+  label: string;
+  onClick: () => void;
+  delay: number;
+}
+
+const WelcomeButton = ({ icon, label, onClick, delay }: WelcomeButtonProps) => {
+  return (
+    <button
+      className="flex flex-col items-center justify-center bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all transform hover:scale-105 focus:ring-2 focus:ring-assistant-purple"
+      onClick={onClick}
+      style={{ 
+        animationDelay: `${delay}s`,
+        animation: 'fade-in 0.5s ease-out forwards',
+        opacity: 0
+      }}
+      aria-label={label}
+    >
+      <div className="p-4 rounded-full bg-assistant-purple-DEFAULT/10 mb-4">
+        <div className="text-assistant-purple-DEFAULT">{icon}</div>
+      </div>
+      <span className="text-xl font-medium text-assistant-gray-dark">{label}</span>
+    </button>
   );
 };
 
