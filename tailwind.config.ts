@@ -80,6 +80,11 @@ export default {
 					}
 				}
 			},
+			ringColor: {
+				'assistant-purple': {
+					DEFAULT: '#9b87f5',
+				},
+			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
